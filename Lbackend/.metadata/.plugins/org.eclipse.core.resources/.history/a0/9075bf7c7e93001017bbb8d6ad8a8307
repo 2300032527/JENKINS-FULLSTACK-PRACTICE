@@ -1,0 +1,10 @@
+spring.application.name=Library
+spring.h2.console.enabled=true
+spring.h2.console.path=/h2-console
+
+spring.datasource.url=jdbc:mysql://localhost:3306/librarydb
+spring.datasource.username=root
+spring.datasource.password=Srilekha@8
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+server.port=8080

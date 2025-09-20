@@ -1,0 +1,60 @@
+package com.example.library.controller;
+
+import com.example.library.model.Book;
+import com.example.library.service.BookService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/books")
+@CrossOrigin(origins = "http://localhost:5173") 
+public class BookController {
+    private final BookService service;
+    public BookController(BookService service) { this.service = service; }
+
+    @GetMapping
+    public List<Book> all() {
+        return service.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Book> get(@PathVariable String id) {
+        return service.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PostMapping
+    public ResponseEntity<?> create(@Valid @RequestBody Book book) {
+        try {
+            Book saved = service.create(book);
+            return ResponseEntity.status(HttpStatus.CREATED).body(saved);
+        } catch (IllegalArgumentException ex) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+        }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> update(@PathVariable String id, @Valid @RequestBody Book book) {
+        try {
+            Book updated = service.update(id, book);
+            return ResponseEntity.ok(updated);
+        } catch (IllegalArgumentException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable String id) {
+        try {
+            service.delete(id);
+            return ResponseEntity.noContent().build();
+        } catch (IllegalArgumentException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+        }
+    }
+}
