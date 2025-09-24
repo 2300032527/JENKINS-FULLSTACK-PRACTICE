@@ -2,6 +2,7 @@
 Lbackend/.metadata/
 Lbackend/Library/target/
 *.war
+.metadata/
 
 # Node & frontend
 node_modules/
