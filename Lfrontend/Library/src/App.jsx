@@ -12,7 +12,7 @@ function App() {
 
   const fetchBooks = async () => {
     try {
-      const response = await fetch("http://localhost:8080/api/books", {
+      const response = await fetch("http://localhost:2030/api/books", {
         method: "GET",
         headers: { "Content-Type": "application/json" },
       });
@@ -38,7 +38,7 @@ function App() {
     }
 
     try {
-      const url = editId ? `http://localhost:8080/api/books/${form.id}` : "http://localhost:8080/api/books";
+      const url = editId ? `http://localhost:2030/api/books/${form.id}` : "http://localhost:2030/api/books";
       const method = editId ? "PUT" : "POST";
       const response = await fetch(url, {
         method,
@@ -62,7 +62,7 @@ function App() {
 
   const handleEdit = async (id) => {
     try {
-      const response = await fetch(`http://localhost:8080/api/books/${id}`);
+      const response = await fetch(`http://localhost:2030/api/books/${id}`);
       if (response.ok) {
         const book = await response.json();
         setForm(book);
@@ -77,7 +77,7 @@ function App() {
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`http://localhost:8080/api/books/${id}`, { method: "DELETE" });
+      const response = await fetch(`http://localhost:2030/api/books/${id}`, { method: "DELETE" });
       if (response.ok) {
         alert("Book deleted successfully!");
         fetchBooks();

@@ -1,6 +1,6 @@
-// Backend API configuration
+
 const config = {
-  backendUrl: "/springbootlibraryapi/" // Change this to your backend URL
+  backendUrl: "localhost:/springbootlibraryapi/" 
 };
 
 export default config;
